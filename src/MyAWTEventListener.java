@@ -1,17 +1,17 @@
-/**
- * @author Cody Walker
- * @version 1.0
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.AWTEventListener;
-
-
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Event Listener extends AWTEventListener used
+ * to test GUI with input.txt after mouseclick is detected
+ *
+ * @author Cody Walker, Mio Diaz
+ * @version 1.0
+ */
 public class MyAWTEventListener implements AWTEventListener {
     int open = 0;
     JTextField  output;
@@ -55,17 +55,17 @@ public class MyAWTEventListener implements AWTEventListener {
         try {
             file = new FileReader("E:\\Sweng431\\Lab4Part3\\.idea\\input.txt"); // will need to change file stream to file location on computer.
             int i;
-            String temp = ""; //sets empty string
+            StringBuilder temp = new StringBuilder(); //sets empty string
             while((i = file.read()) != -1) { //reads its char
                 if(Character.isDigit((char) i)) { //check if is number
-                    temp += (char)i; // adds temp
-                }else if (Character.isWhitespace((char)i) && temp != ""){ //check if next is whitespace and temp is not empty
-                    testFile.add(Integer.valueOf(temp)); //adds temp to arraylist
-                    temp = ""; // empty temp out
+                    temp.append((char) i); // adds temp
+                }else if (Character.isWhitespace((char)i) && !temp.toString().equals("")){ //check if next is whitespace and temp is not empty
+                    testFile.add(Integer.valueOf(temp.toString())); //adds temp to arraylist
+                    temp = new StringBuilder(); // empty temp out
                 }
             }
-            if(temp != ""){ // verify last integer is add to array
-                testFile.add(Integer.valueOf(temp));
+            if(!temp.toString().equals("")){ // verify last integer is add to array
+                testFile.add(Integer.valueOf(temp.toString()));
             }
             } catch(IOException e){
             e.printStackTrace();
